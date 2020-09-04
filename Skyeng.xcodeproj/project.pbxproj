@@ -7,14 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8EE1C8F72501BD400088BF58 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE1C8F62501BD400088BF58 /* AppDelegate.swift */; };
-		8EE1C8F92501BD400088BF58 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE1C8F82501BD400088BF58 /* SceneDelegate.swift */; };
 		8EE1C8FB2501BD400088BF58 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE1C8FA2501BD400088BF58 /* ViewController.swift */; };
 		8EE1C8FE2501BD400088BF58 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EE1C8FC2501BD400088BF58 /* Main.storyboard */; };
 		8EE1C9012501BD400088BF58 /* Skyeng.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8EE1C8FF2501BD400088BF58 /* Skyeng.xcdatamodeld */; };
 		8EE1C9032501BD450088BF58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8EE1C9022501BD450088BF58 /* Assets.xcassets */; };
 		8EE1C9062501BD450088BF58 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EE1C9042501BD450088BF58 /* LaunchScreen.storyboard */; };
 		8EE1C9112501BD460088BF58 /* SkyengTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE1C9102501BD460088BF58 /* SkyengTests.swift */; };
+		8EE1C9202501BDF00088BF58 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE1C91C2501BDF00088BF58 /* AppCoordinator.swift */; };
+		8EE1C9212501BDF00088BF58 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE1C91D2501BDF00088BF58 /* AppDelegate.swift */; };
+		8EE1C9222501BDF00088BF58 /* AppContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE1C91E2501BDF00088BF58 /* AppContext.swift */; };
+		8EE1C9232501BDF00088BF58 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE1C91F2501BDF00088BF58 /* SceneDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,8 +31,6 @@
 
 /* Begin PBXFileReference section */
 		8EE1C8F32501BD400088BF58 /* Skyeng.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Skyeng.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		8EE1C8F62501BD400088BF58 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		8EE1C8F82501BD400088BF58 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		8EE1C8FA2501BD400088BF58 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		8EE1C8FD2501BD400088BF58 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8EE1C9002501BD400088BF58 /* Skyeng.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Skyeng.xcdatamodel; sourceTree = "<group>"; };
@@ -40,6 +40,10 @@
 		8EE1C90C2501BD460088BF58 /* SkyengTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SkyengTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EE1C9102501BD460088BF58 /* SkyengTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkyengTests.swift; sourceTree = "<group>"; };
 		8EE1C9122501BD460088BF58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8EE1C91C2501BDF00088BF58 /* AppCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		8EE1C91D2501BDF00088BF58 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		8EE1C91E2501BDF00088BF58 /* AppContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppContext.swift; sourceTree = "<group>"; };
+		8EE1C91F2501BDF00088BF58 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,8 +85,7 @@
 		8EE1C8F52501BD400088BF58 /* Skyeng */ = {
 			isa = PBXGroup;
 			children = (
-				8EE1C8F62501BD400088BF58 /* AppDelegate.swift */,
-				8EE1C8F82501BD400088BF58 /* SceneDelegate.swift */,
+				8EE1C91B2501BDF00088BF58 /* ApplicationLayer */,
 				8EE1C8FA2501BD400088BF58 /* ViewController.swift */,
 				8EE1C8FC2501BD400088BF58 /* Main.storyboard */,
 				8EE1C9022501BD450088BF58 /* Assets.xcassets */,
@@ -100,6 +103,17 @@
 				8EE1C9122501BD460088BF58 /* Info.plist */,
 			);
 			path = SkyengTests;
+			sourceTree = "<group>";
+		};
+		8EE1C91B2501BDF00088BF58 /* ApplicationLayer */ = {
+			isa = PBXGroup;
+			children = (
+				8EE1C91D2501BDF00088BF58 /* AppDelegate.swift */,
+				8EE1C91F2501BDF00088BF58 /* SceneDelegate.swift */,
+				8EE1C91E2501BDF00088BF58 /* AppContext.swift */,
+				8EE1C91C2501BDF00088BF58 /* AppCoordinator.swift */,
+			);
+			path = ApplicationLayer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -203,10 +217,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8EE1C9212501BDF00088BF58 /* AppDelegate.swift in Sources */,
+				8EE1C9222501BDF00088BF58 /* AppContext.swift in Sources */,
+				8EE1C9202501BDF00088BF58 /* AppCoordinator.swift in Sources */,
 				8EE1C9012501BD400088BF58 /* Skyeng.xcdatamodeld in Sources */,
 				8EE1C8FB2501BD400088BF58 /* ViewController.swift in Sources */,
-				8EE1C8F72501BD400088BF58 /* AppDelegate.swift in Sources */,
-				8EE1C8F92501BD400088BF58 /* SceneDelegate.swift in Sources */,
+				8EE1C9232501BDF00088BF58 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -19,8 +19,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		let window = UIWindow(windowScene: windowScene)
 		self.window = window
 		
-		let coordinator = AppCoordinator(window: window, context: AppDelegate.getServicesAssembly())
+		coordinator = AppCoordinator(window: window, context: AppDelegate.getServicesAssembly())
 		
-		coordinator.start()
+		coordinator?.start()
 	}
+	
 }

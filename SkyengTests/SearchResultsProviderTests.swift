@@ -1,5 +1,5 @@
 //
-//  SkyengTests.swift
+//  SearchResultsProviderTests.swift
 //  SkyengTests
 //
 //  Created by Leonid Serebryanyy on 04.09.2020.
@@ -9,11 +9,10 @@
 import XCTest
 @testable import Skyeng
 
-class SkyengTests: XCTestCase {
+class SearchResultsProviderTests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
-		sleep(10)
     }
 
     override func tearDownWithError() throws {
@@ -23,13 +22,6 @@ class SkyengTests: XCTestCase {
     func testExample() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
+	}
 
 }

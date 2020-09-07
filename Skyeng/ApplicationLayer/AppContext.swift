@@ -10,6 +10,8 @@ import Foundation
  
 
 class AppContext {
+	
+	lazy var searchResultsProvider: ISearchResultsProvider = SearchResultsProvider(cacheService: CacheService(), networkService: NetworkService(urlSession: URLSessionFacade.shared))
 		
 	init() {
 		

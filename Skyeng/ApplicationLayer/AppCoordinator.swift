@@ -9,7 +9,9 @@
 import Foundation
 import UIKit
 
-
+protocol Coordinator {
+	
+}
 
 class AppCoordinator: NSObject {
 		
@@ -17,6 +19,8 @@ class AppCoordinator: NSObject {
 	
 	public var window: UIWindow
 	let context: AppContext
+	
+	var currentPresenter: AnyObject?
 	
 	// MARK: - Lifecycle
 	
@@ -26,41 +30,26 @@ class AppCoordinator: NSObject {
 	}
 	
 	public func start() {
-		// startChooseProjectFlow()
-	}
-//	
-//	public func startChooseProjectFlow() {
-//		let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-//		let chooseProjectNavigationVC = mainStoryboard.instantiateInitialViewController() as! UINavigationController
-//		let chooseProjectsVC = mainStoryboard.instantiateViewController(identifier: "MyProjectsViewController") as! MyProjectsViewController
-//		
-//		chooseProjectsVC.coordinator = self
-//		// и тут можно сервисы всякие передавать в контроллер
-//		
-//		chooseProjectNavigationVC.viewControllers = [chooseProjectsVC]
-//		
-//		window.rootViewController = chooseProjectNavigationVC
-//		window.makeKeyAndVisible()
-//	}
-//	
-//	public func startProduction() {
-//		let productionStoryboard = UIStoryboard(name: "Production", bundle: nil)
-//		let videoVC = productionStoryboard.instantiateViewController(withIdentifier: "VideoViewController") as! VideoViewController // identifier = это storyboard id у контроллера
-//		videoVC.coordinator = self
-//		window.rootViewController = videoVC
-//		window.makeKeyAndVisible()
-//	}
-		
-	public func startPostproduction(with project: Any) { //todo: put project class instead of any
-		
+		startSearchFlow()
 	}
 	
-//	public func cancelProduction() {
-//		self.startChooseProjectFlow()
-//	}
-//	
-	deinit {
-		print("DEINIT")
+	public func startSearchFlow() {
+		let mainStoryboard = UIStoryboard(name: "Search", bundle: nil)
+		
+		let chooseProjectsVC = mainStoryboard.instantiateViewController(identifier: "SearchViewController") as! SearchViewController
+		
+//		let presenter = SearchPresenter(searchResultsProvider: context.searchResultsProvider, view: chooseProjectsVC)
+		
+		let presenter = PresenterMock()
+		currentPresenter = presenter
+		
+		chooseProjectsVC.presenter = presenter
+		window.rootViewController = chooseProjectsVC
+		window.makeKeyAndVisible()
+	}
+	
+	public func coordinatorDidFinish(_ coordinator: Coordinator) {
+		
 	}
 			
 }

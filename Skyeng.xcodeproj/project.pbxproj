@@ -7,8 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8EE1C8FB2501BD400088BF58 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE1C8FA2501BD400088BF58 /* ViewController.swift */; };
-		8EE1C8FE2501BD400088BF58 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EE1C8FC2501BD400088BF58 /* Main.storyboard */; };
+		8E47F51425022A7F00C05CC6 /* RecoverableError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E47F51325022A7F00C05CC6 /* RecoverableError.swift */; };
+		8E47F51625022AC200C05CC6 /* RecoveryAttempt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E47F51525022AC200C05CC6 /* RecoveryAttempt.swift */; };
+		8E47F51825022AFB00C05CC6 /* RecoveryOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E47F51725022AFB00C05CC6 /* RecoveryOptions.swift */; };
+		8E47F51A2502318100C05CC6 /* DataProviderError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E47F5192502318100C05CC6 /* DataProviderError.swift */; };
+		8E47F51C250232A100C05CC6 /* SearchResultsProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E47F51B250232A100C05CC6 /* SearchResultsProviderTests.swift */; };
+		8E47F51E250232FA00C05CC6 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E47F51D250232FA00C05CC6 /* main.swift */; };
+		8E47F52425023A0200C05CC6 /* TestingAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E47F51F2502333500C05CC6 /* TestingAppDelegate.swift */; };
+		8E47F529250613D100C05CC6 /* CacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E47F528250613D100C05CC6 /* CacheService.swift */; };
+		8E47F52B250613FB00C05CC6 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E47F52A250613FB00C05CC6 /* NetworkService.swift */; };
+		8E9C507025063657006FECD5 /* URLProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9C506F25063657006FECD5 /* URLProviderTests.swift */; };
+		8E9C5073250644F9006FECD5 /* NetworkServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9C5072250644F9006FECD5 /* NetworkServiceTests.swift */; };
 		8EE1C9012501BD400088BF58 /* Skyeng.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8EE1C8FF2501BD400088BF58 /* Skyeng.xcdatamodeld */; };
 		8EE1C9032501BD450088BF58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8EE1C9022501BD450088BF58 /* Assets.xcassets */; };
 		8EE1C9062501BD450088BF58 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EE1C9042501BD450088BF58 /* LaunchScreen.storyboard */; };
@@ -17,6 +26,11 @@
 		8EE1C9212501BDF00088BF58 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE1C91D2501BDF00088BF58 /* AppDelegate.swift */; };
 		8EE1C9222501BDF00088BF58 /* AppContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE1C91E2501BDF00088BF58 /* AppContext.swift */; };
 		8EE1C9232501BDF00088BF58 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE1C91F2501BDF00088BF58 /* SceneDelegate.swift */; };
+		8EE1C9572501CAAC0088BF58 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE1C9562501CAAC0088BF58 /* SearchViewController.swift */; };
+		8EE1C9592501CAC70088BF58 /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EE1C9582501CAC70088BF58 /* Search.storyboard */; };
+		8EE1C95D2501CF0D0088BF58 /* SearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE1C95C2501CF0D0088BF58 /* SearchPresenter.swift */; };
+		8EE1C96025021D250088BF58 /* SearchResultsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE1C95F25021D250088BF58 /* SearchResultsProvider.swift */; };
+		8EF5AB9B25061EB400B01130 /* URLProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF5AB9A25061EB400B01130 /* URLProvider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,9 +44,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8E47F51325022A7F00C05CC6 /* RecoverableError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoverableError.swift; sourceTree = "<group>"; };
+		8E47F51525022AC200C05CC6 /* RecoveryAttempt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryAttempt.swift; sourceTree = "<group>"; };
+		8E47F51725022AFB00C05CC6 /* RecoveryOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryOptions.swift; sourceTree = "<group>"; };
+		8E47F5192502318100C05CC6 /* DataProviderError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProviderError.swift; sourceTree = "<group>"; };
+		8E47F51B250232A100C05CC6 /* SearchResultsProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsProviderTests.swift; sourceTree = "<group>"; };
+		8E47F51D250232FA00C05CC6 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		8E47F51F2502333500C05CC6 /* TestingAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingAppDelegate.swift; sourceTree = "<group>"; };
+		8E47F528250613D100C05CC6 /* CacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheService.swift; sourceTree = "<group>"; };
+		8E47F52A250613FB00C05CC6 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		8E9C506F25063657006FECD5 /* URLProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLProviderTests.swift; sourceTree = "<group>"; };
+		8E9C5072250644F9006FECD5 /* NetworkServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceTests.swift; sourceTree = "<group>"; };
 		8EE1C8F32501BD400088BF58 /* Skyeng.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Skyeng.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		8EE1C8FA2501BD400088BF58 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		8EE1C8FD2501BD400088BF58 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8EE1C9002501BD400088BF58 /* Skyeng.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Skyeng.xcdatamodel; sourceTree = "<group>"; };
 		8EE1C9022501BD450088BF58 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8EE1C9052501BD450088BF58 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -44,6 +67,12 @@
 		8EE1C91D2501BDF00088BF58 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8EE1C91E2501BDF00088BF58 /* AppContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppContext.swift; sourceTree = "<group>"; };
 		8EE1C91F2501BDF00088BF58 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		8EE1C9562501CAAC0088BF58 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		8EE1C9582501CAC70088BF58 /* Search.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Search.storyboard; sourceTree = "<group>"; };
+		8EE1C95A2501CC740088BF58 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		8EE1C95C2501CF0D0088BF58 /* SearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPresenter.swift; sourceTree = "<group>"; };
+		8EE1C95F25021D250088BF58 /* SearchResultsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsProvider.swift; sourceTree = "<group>"; };
+		8EF5AB9A25061EB400B01130 /* URLProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLProvider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +93,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8E47F527250261A200C05CC6 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				8E47F51F2502333500C05CC6 /* TestingAppDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		8E9C506E25063638006FECD5 /* ApplicationLayer */ = {
+			isa = PBXGroup;
+			children = (
+				8E9C506F25063657006FECD5 /* URLProviderTests.swift */,
+			);
+			path = ApplicationLayer;
+			sourceTree = "<group>";
+		};
+		8E9C5071250644E3006FECD5 /* BusinessLogic */ = {
+			isa = PBXGroup;
+			children = (
+				8E9C5072250644F9006FECD5 /* NetworkServiceTests.swift */,
+			);
+			path = BusinessLogic;
+			sourceTree = "<group>";
+		};
 		8EE1C8EA2501BD400088BF58 = {
 			isa = PBXGroup;
 			children = (
@@ -86,12 +139,17 @@
 			isa = PBXGroup;
 			children = (
 				8EE1C91B2501BDF00088BF58 /* ApplicationLayer */,
-				8EE1C8FA2501BD400088BF58 /* ViewController.swift */,
-				8EE1C8FC2501BD400088BF58 /* Main.storyboard */,
+				8EE1C9552501CA1C0088BF58 /* Presentation */,
+				8EE1C95B2501CE5F0088BF58 /* BusinessLogics */,
+				8EE1C95E25021CBC0088BF58 /* ServiceLayer */,
 				8EE1C9022501BD450088BF58 /* Assets.xcassets */,
 				8EE1C9042501BD450088BF58 /* LaunchScreen.storyboard */,
 				8EE1C9072501BD450088BF58 /* Info.plist */,
 				8EE1C8FF2501BD400088BF58 /* Skyeng.xcdatamodeld */,
+				8EE1C95A2501CC740088BF58 /* README.md */,
+				8E47F51325022A7F00C05CC6 /* RecoverableError.swift */,
+				8E47F51525022AC200C05CC6 /* RecoveryAttempt.swift */,
+				8E47F51725022AFB00C05CC6 /* RecoveryOptions.swift */,
 			);
 			path = Skyeng;
 			sourceTree = "<group>";
@@ -99,7 +157,11 @@
 		8EE1C90F2501BD460088BF58 /* SkyengTests */ = {
 			isa = PBXGroup;
 			children = (
+				8E9C5071250644E3006FECD5 /* BusinessLogic */,
+				8E9C506E25063638006FECD5 /* ApplicationLayer */,
+				8E47F527250261A200C05CC6 /* App */,
 				8EE1C9102501BD460088BF58 /* SkyengTests.swift */,
+				8E47F51B250232A100C05CC6 /* SearchResultsProviderTests.swift */,
 				8EE1C9122501BD460088BF58 /* Info.plist */,
 			);
 			path = SkyengTests;
@@ -112,8 +174,38 @@
 				8EE1C91F2501BDF00088BF58 /* SceneDelegate.swift */,
 				8EE1C91E2501BDF00088BF58 /* AppContext.swift */,
 				8EE1C91C2501BDF00088BF58 /* AppCoordinator.swift */,
+				8E47F51D250232FA00C05CC6 /* main.swift */,
+				8EF5AB9A25061EB400B01130 /* URLProvider.swift */,
 			);
 			path = ApplicationLayer;
+			sourceTree = "<group>";
+		};
+		8EE1C9552501CA1C0088BF58 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				8EE1C9562501CAAC0088BF58 /* SearchViewController.swift */,
+				8EE1C9582501CAC70088BF58 /* Search.storyboard */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		8EE1C95B2501CE5F0088BF58 /* BusinessLogics */ = {
+			isa = PBXGroup;
+			children = (
+				8EE1C95C2501CF0D0088BF58 /* SearchPresenter.swift */,
+				8EE1C95F25021D250088BF58 /* SearchResultsProvider.swift */,
+				8E47F5192502318100C05CC6 /* DataProviderError.swift */,
+			);
+			path = BusinessLogics;
+			sourceTree = "<group>";
+		};
+		8EE1C95E25021CBC0088BF58 /* ServiceLayer */ = {
+			isa = PBXGroup;
+			children = (
+				8E47F528250613D100C05CC6 /* CacheService.swift */,
+				8E47F52A250613FB00C05CC6 /* NetworkService.swift */,
+			);
+			path = ServiceLayer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -198,8 +290,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8EE1C9062501BD450088BF58 /* LaunchScreen.storyboard in Resources */,
+				8EE1C9592501CAC70088BF58 /* Search.storyboard in Resources */,
 				8EE1C9032501BD450088BF58 /* Assets.xcassets in Resources */,
-				8EE1C8FE2501BD400088BF58 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,12 +309,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E47F51625022AC200C05CC6 /* RecoveryAttempt.swift in Sources */,
+				8E47F51E250232FA00C05CC6 /* main.swift in Sources */,
+				8EE1C9572501CAAC0088BF58 /* SearchViewController.swift in Sources */,
+				8EE1C96025021D250088BF58 /* SearchResultsProvider.swift in Sources */,
 				8EE1C9212501BDF00088BF58 /* AppDelegate.swift in Sources */,
 				8EE1C9222501BDF00088BF58 /* AppContext.swift in Sources */,
+				8E47F51A2502318100C05CC6 /* DataProviderError.swift in Sources */,
+				8E47F51825022AFB00C05CC6 /* RecoveryOptions.swift in Sources */,
 				8EE1C9202501BDF00088BF58 /* AppCoordinator.swift in Sources */,
 				8EE1C9012501BD400088BF58 /* Skyeng.xcdatamodeld in Sources */,
-				8EE1C8FB2501BD400088BF58 /* ViewController.swift in Sources */,
+				8E47F52B250613FB00C05CC6 /* NetworkService.swift in Sources */,
 				8EE1C9232501BDF00088BF58 /* SceneDelegate.swift in Sources */,
+				8EE1C95D2501CF0D0088BF58 /* SearchPresenter.swift in Sources */,
+				8EF5AB9B25061EB400B01130 /* URLProvider.swift in Sources */,
+				8E47F529250613D100C05CC6 /* CacheService.swift in Sources */,
+				8E47F51425022A7F00C05CC6 /* RecoverableError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -230,6 +332,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E47F52425023A0200C05CC6 /* TestingAppDelegate.swift in Sources */,
+				8E47F51C250232A100C05CC6 /* SearchResultsProviderTests.swift in Sources */,
+				8E9C5073250644F9006FECD5 /* NetworkServiceTests.swift in Sources */,
+				8E9C507025063657006FECD5 /* URLProviderTests.swift in Sources */,
 				8EE1C9112501BD460088BF58 /* SkyengTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -245,14 +351,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		8EE1C8FC2501BD400088BF58 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				8EE1C8FD2501BD400088BF58 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		8EE1C9042501BD450088BF58 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

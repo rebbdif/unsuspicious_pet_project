@@ -8,65 +8,141 @@
 
 import Foundation
 
-
-protocol NetworkServiceProtocol {
-	func getFromNetwork(model: NetworkRequest, _ completion: (Result<DataProviderResponse, RecoverableError>) -> Void )
+public class NetworkRequest: URLTaskProtocol {
+	
+	public enum RequestType: Int {
+		case search, query, genericDataTask
+	}
+	
+	public var type: RequestType
+	public var url: URL
+	
+	public func resume() {
+		task?.resume()
+		onFinished?(self)
+	}
+	
+	public func cancel() {
+		task?.cancel()
+		onFinished?(self)
+	}
+	
+	public func suspend() {
+		task?.suspend()
+		onFinished?(self)
+	}
+	
+	public var onFinished: ((URLTaskProtocol) -> Void)?
+	
+	private var task: URLSessionTaskProtocol?
+	public func setTask(_ task: URLSessionTaskProtocol) {
+		self.task = task
+	}
+	
+	init(type: NetworkRequest.RequestType, url: URL) {
+		self.type = type
+		self.url = url
+	}
+	
+	static func search(url: URL) -> NetworkRequest {
+		return NetworkRequest(type: .search, url: url)
+	}
+	
+	static func query(url: URL) -> NetworkRequest {
+		return NetworkRequest(type: .query, url: url)
+	}
+	
+	static func genericDataTask(url: URL) -> NetworkRequest {
+		return NetworkRequest(type: .genericDataTask, url: url)
+	}
 }
 
+protocol NetworkServiceProtocol {
+	func getFromNetwork(model: DataProviderRequest, _ completion: @escaping (Result<DataProviderResponse, SLVRecoverableError>) -> Void )
+}
 
-class NetworkService {
+class NetworkService: NetworkServiceProtocol {
 	
-	var urlSession: URLSessionFacadeProtocol
+	private var urlSession: URLSessionFacadeProtocol
+	private var urlProvider: URLProvider
+	private var networkServiceQueue = DispatchQueue(label: "com.skyeng.networkServiceQueue")
 	
-	init(urlSession: URLSessionFacadeProtocol) {
+	init(urlSession: URLSessionFacadeProtocol, urlProvider: URLProvider) {
 		self.urlSession = urlSession
+		self.urlProvider = urlProvider
 	}
 	
-	func getFromNetwork(model: NetworkRequest, _ completion: (Result<DataProviderResponse, RecoverableError>) -> Void ) {
-		print("getting from \(model.url)")
-		// if not deduplicating
-		let dataTask = urlSession.dataTask(with: model.url) { (data, resp, error) in
-			if let data = data {
-				
-			}
+	private var activeTasks = [URLTaskProtocol]()
+		
+	func getFromNetwork(model: DataProviderRequest, _ completion: @escaping (Result<DataProviderResponse, SLVRecoverableError>) -> Void ) {
+		let request = self.networkRequest(for: model)
+		networkServiceQueue.async { [weak self] in
+			guard let self = self else {return}
+			let sameTasks = self.activeTasks.filter { $0.url == request.url }
+			if !sameTasks.isEmpty { return }
 			
+			let otherTasksOfTheType = self.activeTasks.filter {$0.type == request.type}
+			otherTasksOfTheType.forEach { $0.cancel() }
+			
+			print("\(#function) starting task with \(request.url)")
+			
+			let dataTask = self.urlSession.dataTask(url: request.url) { [weak self] (data, resp, error) in
+				request.onFinished?(request)
+				if let data = data {
+					let result = DataProviderResponse.search(results: ["hi"])
+					completion(Result.success(result))
+				}
+			}
+			request.onFinished = {[weak self] (request) in
+				self?.networkServiceQueue.async { [weak self] in
+					self?.activeTasks.removeAll(where: {$0.url == request.url })
+				}
+			}
+			request.setTask(dataTask)
+			
+			self.activeTasks.append(request)
+			dataTask.resume()
 		}
-		dataTask.resume()
 	}
 	
-//	private func response(for request: NetworkRequest, data: [String: Any]>) {
-//		switch request.request {
-//		case .search(query: let query, offset: let offset):
-//			break
-//		}
-//	}
+	private func networkRequest(for request: DataProviderRequest) -> NetworkRequest {
+		let url = urlProvider.url(for: request)
+
+		switch request {
+		case .search(query: _, offset: _):
+			return NetworkRequest.search(url: url)
+		case .detailed(query: _):
+			return NetworkRequest.query(url: url)
+		}
+	}
 }
 
 
 public protocol URLSessionFacadeProtocol {
-	func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLTaskProtocol
-	
-	
+	func dataTask(url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionTaskProtocol
 }
 
-//public protocol URLTaskProtocol {
-
-//}
+public enum URLTaskState {
+	case undefined, running, suspended, finished
+}
 
 public protocol URLTaskProtocol {
-	init()
+	func resume()
+	func cancel()
+	func suspend()
+	var url: URL {get}
+	var type: NetworkRequest.RequestType {get}
+	var onFinished: ((URLTaskProtocol) -> Void)? { get set }
+}
+
+
+public protocol URLSessionTaskProtocol {
 	func resume()
 	func cancel()
 	func suspend()
 }
 
-extension URLSessionDataTask: URLTaskProtocol {
-	
-	open override func resume() {
-		self.resume()
-	}
-	
-}
+extension URLSessionTask: URLSessionTaskProtocol {}
 
 
 class URLSessionFacade: URLSessionFacadeProtocol {
@@ -79,10 +155,8 @@ class URLSessionFacade: URLSessionFacadeProtocol {
 		self.session = session
 	}
 	
-	func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLTaskProtocol {
-		return session.dataTask(with: url, completionHandler: completionHandler) as URLTaskProtocol
+	func dataTask(url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionTaskProtocol {
+		let task = session.dataTask(with: url, completionHandler: completionHandler)
+		return task
 	}
-	
-
-
 }

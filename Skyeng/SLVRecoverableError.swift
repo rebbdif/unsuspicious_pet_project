@@ -1,5 +1,5 @@
 //
-//  RecoverableError.swift
+//  SLVRecoverableError.swift
 //  Skyeng
 //
 //  Created by Leonid Serebryanyy on 04.09.2020.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct RecoverableError {
+struct SLVRecoverableError {
 	let error: Error
 	let attempter: RecoveryAttemper
 
@@ -18,7 +18,7 @@ struct RecoverableError {
 }
 
 // MARK: - Foundation.RecoverableError
-extension RecoverableError: Foundation.RecoverableError {
+extension SLVRecoverableError: Foundation.RecoverableError {
 	var recoveryOptions: [String] {
 		return attempter.recoveryOptionsText
 	}
@@ -36,7 +36,7 @@ extension RecoverableError: Foundation.RecoverableError {
 }
 
 // MARK: - LocalizedError
-extension RecoverableError: LocalizedError {
+extension SLVRecoverableError: LocalizedError {
 	var errorDescription: String? {
 		return localizedError?.errorDescription ?? "Something bad happened"
 	}

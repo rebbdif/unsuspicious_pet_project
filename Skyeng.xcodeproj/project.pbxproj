@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8E47F51425022A7F00C05CC6 /* RecoverableError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E47F51325022A7F00C05CC6 /* RecoverableError.swift */; };
+		8E47F51425022A7F00C05CC6 /* SLVRecoverableError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E47F51325022A7F00C05CC6 /* SLVRecoverableError.swift */; };
 		8E47F51625022AC200C05CC6 /* RecoveryAttempt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E47F51525022AC200C05CC6 /* RecoveryAttempt.swift */; };
 		8E47F51825022AFB00C05CC6 /* RecoveryOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E47F51725022AFB00C05CC6 /* RecoveryOptions.swift */; };
 		8E47F51A2502318100C05CC6 /* DataProviderError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E47F5192502318100C05CC6 /* DataProviderError.swift */; };
@@ -21,7 +21,6 @@
 		8EE1C9012501BD400088BF58 /* Skyeng.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8EE1C8FF2501BD400088BF58 /* Skyeng.xcdatamodeld */; };
 		8EE1C9032501BD450088BF58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8EE1C9022501BD450088BF58 /* Assets.xcassets */; };
 		8EE1C9062501BD450088BF58 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EE1C9042501BD450088BF58 /* LaunchScreen.storyboard */; };
-		8EE1C9112501BD460088BF58 /* SkyengTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE1C9102501BD460088BF58 /* SkyengTests.swift */; };
 		8EE1C9202501BDF00088BF58 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE1C91C2501BDF00088BF58 /* AppCoordinator.swift */; };
 		8EE1C9212501BDF00088BF58 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE1C91D2501BDF00088BF58 /* AppDelegate.swift */; };
 		8EE1C9222501BDF00088BF58 /* AppContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE1C91E2501BDF00088BF58 /* AppContext.swift */; };
@@ -44,7 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		8E47F51325022A7F00C05CC6 /* RecoverableError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoverableError.swift; sourceTree = "<group>"; };
+		8E47F51325022A7F00C05CC6 /* SLVRecoverableError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLVRecoverableError.swift; sourceTree = "<group>"; };
 		8E47F51525022AC200C05CC6 /* RecoveryAttempt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryAttempt.swift; sourceTree = "<group>"; };
 		8E47F51725022AFB00C05CC6 /* RecoveryOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryOptions.swift; sourceTree = "<group>"; };
 		8E47F5192502318100C05CC6 /* DataProviderError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProviderError.swift; sourceTree = "<group>"; };
@@ -61,7 +60,6 @@
 		8EE1C9052501BD450088BF58 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8EE1C9072501BD450088BF58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8EE1C90C2501BD460088BF58 /* SkyengTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SkyengTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		8EE1C9102501BD460088BF58 /* SkyengTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkyengTests.swift; sourceTree = "<group>"; };
 		8EE1C9122501BD460088BF58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8EE1C91C2501BDF00088BF58 /* AppCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		8EE1C91D2501BDF00088BF58 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -147,7 +145,7 @@
 				8EE1C9072501BD450088BF58 /* Info.plist */,
 				8EE1C8FF2501BD400088BF58 /* Skyeng.xcdatamodeld */,
 				8EE1C95A2501CC740088BF58 /* README.md */,
-				8E47F51325022A7F00C05CC6 /* RecoverableError.swift */,
+				8E47F51325022A7F00C05CC6 /* SLVRecoverableError.swift */,
 				8E47F51525022AC200C05CC6 /* RecoveryAttempt.swift */,
 				8E47F51725022AFB00C05CC6 /* RecoveryOptions.swift */,
 			);
@@ -160,7 +158,6 @@
 				8E9C5071250644E3006FECD5 /* BusinessLogic */,
 				8E9C506E25063638006FECD5 /* ApplicationLayer */,
 				8E47F527250261A200C05CC6 /* App */,
-				8EE1C9102501BD460088BF58 /* SkyengTests.swift */,
 				8E47F51B250232A100C05CC6 /* SearchResultsProviderTests.swift */,
 				8EE1C9122501BD460088BF58 /* Info.plist */,
 			);
@@ -324,7 +321,7 @@
 				8EE1C95D2501CF0D0088BF58 /* SearchPresenter.swift in Sources */,
 				8EF5AB9B25061EB400B01130 /* URLProvider.swift in Sources */,
 				8E47F529250613D100C05CC6 /* CacheService.swift in Sources */,
-				8E47F51425022A7F00C05CC6 /* RecoverableError.swift in Sources */,
+				8E47F51425022A7F00C05CC6 /* SLVRecoverableError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -336,7 +333,6 @@
 				8E47F51C250232A100C05CC6 /* SearchResultsProviderTests.swift in Sources */,
 				8E9C5073250644F9006FECD5 /* NetworkServiceTests.swift in Sources */,
 				8E9C507025063657006FECD5 /* URLProviderTests.swift in Sources */,
-				8EE1C9112501BD460088BF58 /* SkyengTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

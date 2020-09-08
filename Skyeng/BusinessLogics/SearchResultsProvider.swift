@@ -11,14 +11,13 @@ import Foundation
 
 internal enum DataProviderRequest {
 	case search(query: String, offset: Int)
+	case detailed(query: String)
 }
 
-internal struct NetworkRequest {
-	var url: URL
-}
 
-internal struct DataProviderResponse { //#todo: move
-	
+
+internal enum DataProviderResponse {
+	case search(results: [Any])
 }
 
 internal typealias DataRequestCompletion = (Result<DataProviderResponse, DataProviderError>) -> ()
@@ -47,7 +46,7 @@ class SearchResultsProvider: ISearchResultsProvider {
 			case .failure(_):
 				break
 //				let request = DataProviderRequest.search(query: <#T##String#>, offset: <#T##Int#>, url: <#T##URL#>)
-//				networkService.getFromNetwork(model: <#T##DataProviderRequest#>, <#T##completion: (Result<DataProviderResponse, RecoverableError>) -> Void##(Result<DataProviderResponse, RecoverableError>) -> Void#>)
+//				networkService.getFromNetwork(model: <#T##DataProviderRequest#>, <#T##completion: (Result<DataProviderResponse, SLVRecoverableError>) -> Void##(Result<DataProviderResponse, RecoverableError>) -> Void#>)
 //				networkService.getFromNetwork { [weak self] result in
 					
 				}

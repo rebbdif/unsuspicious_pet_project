@@ -11,7 +11,7 @@ import Foundation
 
 class AppContext {
 	
-	lazy var searchResultsProvider: ISearchResultsProvider = SearchResultsProvider(cacheService: CacheService(), networkService: NetworkService(urlSession: URLSessionFacade.shared))
+	lazy var searchResultsProvider: ISearchResultsProvider = SearchResultsProvider(cacheService: CacheService(), networkService: NetworkService(urlSession: URLSessionFacade.shared, urlProvider: URLProvider()))
 		
 	init() {
 		

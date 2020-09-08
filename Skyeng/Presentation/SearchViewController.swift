@@ -39,7 +39,7 @@ class SearchViewController: UIViewController, SearchPresenterOutput, UITableView
 		
 	}
 	
-	func showError(_ error: RecoverableError) {
+	func showError(_ error: SLVRecoverableError) {
 		
 	}
 	

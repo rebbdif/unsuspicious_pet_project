@@ -27,7 +27,7 @@ protocol SearchPresenterInput: class, ContentProvider, SearchProvider {
 
 protocol SearchPresenterOutput: class {
 	func updateSearchResults()
-	func showError(_ error: RecoverableError)
+	func showError(_ error: SLVRecoverableError)
 }
 
 

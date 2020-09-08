@@ -8,7 +8,11 @@
 
 import Foundation
 
-class URLProvider {
+protocol URLProviderProtocol {
+	func url(for request: DataProviderRequest) -> URL
+}
+
+class URLProvider: URLProviderProtocol {
 	var baseURL: String {
 		return "https://dictionary.skyeng.ru/api/public/v1/"
 	}
@@ -29,6 +33,8 @@ class URLProvider {
 				preconditionFailure("failed to create url from \(query)")
 			}
 			return url
+		case .detailed(query: let query):
+			return URL(string: "https://googole.com")!
 		}
 		
 		

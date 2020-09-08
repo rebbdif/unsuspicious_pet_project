@@ -24,7 +24,7 @@ internal typealias DataRequestCompletion = (Result<DataProviderResponse, DataPro
 
 
 internal protocol ISearchResultsProvider {
-	func handle(query: NetworkRequest, completion: DataRequestCompletion)
+	func handle(query: DataProviderRequest, completion: DataRequestCompletion)
 }
 
 class SearchResultsProvider: ISearchResultsProvider {
@@ -38,7 +38,7 @@ class SearchResultsProvider: ISearchResultsProvider {
 		self.networkService = networkService
 	}
 	
-	func handle(query: NetworkRequest, completion: (Result<DataProviderResponse, DataProviderError>) -> ()) {
+	func handle(query: DataProviderRequest, completion: (Result<DataProviderResponse, DataProviderError>) -> ()) {
 		cacheService.getFromCache { [weak self] (result) in
 			switch result {
 			case .success(let fetchedValue):

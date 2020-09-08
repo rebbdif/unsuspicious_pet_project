@@ -382,8 +382,8 @@
             filePath = "Skyeng/ServiceLayer/NetworkService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "71"
-            endingLineNumber = "71"
+            startingLineNumber = "23"
+            endingLineNumber = "23"
             landmarkName = "init(urlSession:urlProvider:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -478,25 +478,9 @@
             filePath = "Skyeng/ServiceLayer/NetworkService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "78"
-            endingLineNumber = "78"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
             landmarkName = "getFromNetwork(model:_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "DD5395D4-CA4C-4E4A-B42C-45AE713F6987"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Skyeng/ServiceLayer/NetworkService.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "27"
-            endingLineNumber = "27"
-            landmarkName = "cancel()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

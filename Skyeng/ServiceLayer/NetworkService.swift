@@ -8,54 +8,6 @@
 
 import Foundation
 
-public class NetworkRequest: URLTaskProtocol {
-	
-	public enum RequestType: Int {
-		case search, query, genericDataTask
-	}
-	
-	public var type: RequestType
-	public var url: URL
-	
-	public func resume() {
-		task?.resume()
-		onFinished?(self)
-	}
-	
-	public func cancel() {
-		task?.cancel()
-		onFinished?(self)
-	}
-	
-	public func suspend() {
-		task?.suspend()
-		onFinished?(self)
-	}
-	
-	public var onFinished: ((URLTaskProtocol) -> Void)?
-	
-	private var task: URLSessionTaskProtocol?
-	public func setTask(_ task: URLSessionTaskProtocol) {
-		self.task = task
-	}
-	
-	init(type: NetworkRequest.RequestType, url: URL) {
-		self.type = type
-		self.url = url
-	}
-	
-	static func search(url: URL) -> NetworkRequest {
-		return NetworkRequest(type: .search, url: url)
-	}
-	
-	static func query(url: URL) -> NetworkRequest {
-		return NetworkRequest(type: .query, url: url)
-	}
-	
-	static func genericDataTask(url: URL) -> NetworkRequest {
-		return NetworkRequest(type: .genericDataTask, url: url)
-	}
-}
 
 protocol NetworkServiceProtocol {
 	func getFromNetwork(model: DataProviderRequest, _ completion: @escaping (Result<DataProviderResponse, SLVRecoverableError>) -> Void )
@@ -72,7 +24,7 @@ class NetworkService: NetworkServiceProtocol {
 		self.urlProvider = urlProvider
 	}
 	
-	private var activeTasks = [URLTaskProtocol]()
+	private var activeTasks = [NetworkRequest]()
 		
 	func getFromNetwork(model: DataProviderRequest, _ completion: @escaping (Result<DataProviderResponse, SLVRecoverableError>) -> Void ) {
 		let request = self.networkRequest(for: model)
@@ -118,45 +70,51 @@ class NetworkService: NetworkServiceProtocol {
 }
 
 
-public protocol URLSessionFacadeProtocol {
-	func dataTask(url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionTaskProtocol
-}
-
-public enum URLTaskState {
-	case undefined, running, suspended, finished
-}
-
-public protocol URLTaskProtocol {
-	func resume()
-	func cancel()
-	func suspend()
-	var url: URL {get}
-	var type: NetworkRequest.RequestType {get}
-	var onFinished: ((URLTaskProtocol) -> Void)? { get set }
-}
-
-
-public protocol URLSessionTaskProtocol {
-	func resume()
-	func cancel()
-	func suspend()
-}
-
-extension URLSessionTask: URLSessionTaskProtocol {}
-
-
-class URLSessionFacade: URLSessionFacadeProtocol {
+fileprivate class NetworkRequest {
 	
-	static let shared = URLSessionFacade(session: URLSession.shared)
-	
-	private var session: URLSession
-	
-	internal init(session: URLSession) {
-		self.session = session
+	enum RequestType: Int {
+		case search, query, genericDataTask
 	}
 	
-	func dataTask(url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionTaskProtocol {
-		let task = session.dataTask(with: url, completionHandler: completionHandler)
-		return task
+	public var type: RequestType
+	public var url: URL
+	
+	public func resume() {
+		task?.resume()
+		onFinished?(self)
+	}
+	
+	public func cancel() {
+		task?.cancel()
+		onFinished?(self)
+	}
+	
+	public func suspend() {
+		task?.suspend()
+		onFinished?(self)
+	}
+	
+	public var onFinished: ((NetworkRequest) -> Void)?
+	
+	private var task: URLSessionTaskProtocol?
+	public func setTask(_ task: URLSessionTaskProtocol) {
+		self.task = task
+	}
+	
+	init(type: NetworkRequest.RequestType, url: URL) {
+		self.type = type
+		self.url = url
+	}
+	
+	static func search(url: URL) -> NetworkRequest {
+		return NetworkRequest(type: .search, url: url)
+	}
+	
+	static func query(url: URL) -> NetworkRequest {
+		return NetworkRequest(type: .query, url: url)
+	}
+	
+	static func genericDataTask(url: URL) -> NetworkRequest {
+		return NetworkRequest(type: .genericDataTask, url: url)
 	}
 }

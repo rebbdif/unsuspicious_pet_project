@@ -19,6 +19,8 @@
 		8E9C507025063657006FECD5 /* URLProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9C506F25063657006FECD5 /* URLProviderTests.swift */; };
 		8E9C5073250644F9006FECD5 /* NetworkServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9C5072250644F9006FECD5 /* NetworkServiceTests.swift */; };
 		8EA9F39D2507A8E20078E3B8 /* URLSessionFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA9F39C2507A8E20078E3B8 /* URLSessionFacade.swift */; };
+		8EA9F439250A822B0078E3B8 /* SearchResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA9F438250A822B0078E3B8 /* SearchResultModel.swift */; };
+		8EA9F43B250A8D6D0078E3B8 /* NetworkParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA9F43A250A8D6D0078E3B8 /* NetworkParserTests.swift */; };
 		8EE1C9012501BD400088BF58 /* Skyeng.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8EE1C8FF2501BD400088BF58 /* Skyeng.xcdatamodeld */; };
 		8EE1C9032501BD450088BF58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8EE1C9022501BD450088BF58 /* Assets.xcassets */; };
 		8EE1C9062501BD450088BF58 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EE1C9042501BD450088BF58 /* LaunchScreen.storyboard */; };
@@ -56,6 +58,8 @@
 		8E9C506F25063657006FECD5 /* URLProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLProviderTests.swift; sourceTree = "<group>"; };
 		8E9C5072250644F9006FECD5 /* NetworkServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceTests.swift; sourceTree = "<group>"; };
 		8EA9F39C2507A8E20078E3B8 /* URLSessionFacade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionFacade.swift; sourceTree = "<group>"; };
+		8EA9F438250A822B0078E3B8 /* SearchResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultModel.swift; sourceTree = "<group>"; };
+		8EA9F43A250A8D6D0078E3B8 /* NetworkParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkParserTests.swift; sourceTree = "<group>"; };
 		8EE1C8F32501BD400088BF58 /* Skyeng.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Skyeng.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EE1C9002501BD400088BF58 /* Skyeng.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Skyeng.xcdatamodel; sourceTree = "<group>"; };
 		8EE1C9022501BD450088BF58 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -113,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				8E9C5072250644F9006FECD5 /* NetworkServiceTests.swift */,
+				8EA9F43A250A8D6D0078E3B8 /* NetworkParserTests.swift */,
 			);
 			path = BusinessLogic;
 			sourceTree = "<group>";
@@ -174,7 +179,6 @@
 				8EE1C91E2501BDF00088BF58 /* AppContext.swift */,
 				8EE1C91C2501BDF00088BF58 /* AppCoordinator.swift */,
 				8E47F51D250232FA00C05CC6 /* main.swift */,
-				8EF5AB9A25061EB400B01130 /* URLProvider.swift */,
 			);
 			path = ApplicationLayer;
 			sourceTree = "<group>";
@@ -191,6 +195,8 @@
 		8EE1C95B2501CE5F0088BF58 /* BusinessLogics */ = {
 			isa = PBXGroup;
 			children = (
+				8EF5AB9A25061EB400B01130 /* URLProvider.swift */,
+				8EA9F438250A822B0078E3B8 /* SearchResultModel.swift */,
 				8EE1C95C2501CF0D0088BF58 /* SearchPresenter.swift */,
 				8EE1C95F25021D250088BF58 /* SearchResultsProvider.swift */,
 				8E47F5192502318100C05CC6 /* DataProviderError.swift */,
@@ -311,6 +317,7 @@
 			files = (
 				8E47F51625022AC200C05CC6 /* RecoveryAttempt.swift in Sources */,
 				8E47F51E250232FA00C05CC6 /* main.swift in Sources */,
+				8EA9F439250A822B0078E3B8 /* SearchResultModel.swift in Sources */,
 				8EA9F39D2507A8E20078E3B8 /* URLSessionFacade.swift in Sources */,
 				8EE1C9572501CAAC0088BF58 /* SearchViewController.swift in Sources */,
 				8EE1C96025021D250088BF58 /* SearchResultsProvider.swift in Sources */,
@@ -336,6 +343,7 @@
 				8E47F52425023A0200C05CC6 /* TestingAppDelegate.swift in Sources */,
 				8E47F51C250232A100C05CC6 /* SearchResultsProviderTests.swift in Sources */,
 				8E9C5073250644F9006FECD5 /* NetworkServiceTests.swift in Sources */,
+				8EA9F43B250A8D6D0078E3B8 /* NetworkParserTests.swift in Sources */,
 				8E9C507025063657006FECD5 /* URLProviderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

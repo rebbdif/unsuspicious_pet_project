@@ -10,7 +10,7 @@ import Foundation
 
 
 protocol NetworkServiceProtocol {
-	func getFromNetwork(model: DataProviderRequest, _ completion: @escaping (Result<DataProviderResponse, SLVRecoverableError>) -> Void )
+	func getFromNetwork(model: DataProviderRequest, _ completion: @escaping (Result<Data, DataProviderError>) -> Void )
 }
 
 class NetworkService: NetworkServiceProtocol {
@@ -26,7 +26,7 @@ class NetworkService: NetworkServiceProtocol {
 	
 	private var activeTasks = [NetworkRequest]()
 		
-	func getFromNetwork(model: DataProviderRequest, _ completion: @escaping (Result<DataProviderResponse, SLVRecoverableError>) -> Void ) {
+	func getFromNetwork(model: DataProviderRequest, _ completion: @escaping (Result<Data, DataProviderError>) -> Void ) {
 		let request = self.networkRequest(for: model)
 		networkServiceQueue.async { [weak self] in
 			guard let self = self else {return}
@@ -38,11 +38,12 @@ class NetworkService: NetworkServiceProtocol {
 			
 			print("\(#function) starting task with \(request.url)")
 			
-			let dataTask = self.urlSession.dataTask(url: request.url) { [weak self] (data, resp, error) in
+			let dataTask = self.urlSession.dataTask(url: request.url) {(data, resp, error) in
 				request.onFinished?(request)
 				if let data = data {
-					let result = DataProviderResponse.search(results: ["hi"])
-					completion(Result.success(result))
+					completion(.success(data))
+				} else {
+					completion(.failure(error as! DataProviderError)) // todo
 				}
 			}
 			request.onFinished = {[weak self] (request) in
@@ -95,6 +96,8 @@ fileprivate class NetworkRequest {
 	}
 	
 	public var onFinished: ((NetworkRequest) -> Void)?
+	public var onCancelled: ((NetworkRequest) -> Void)?
+	public var onSuspended: ((NetworkRequest) -> Void)?
 	
 	private var task: URLSessionTaskProtocol?
 	public func setTask(_ task: URLSessionTaskProtocol) {

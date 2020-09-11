@@ -43,7 +43,14 @@ class NetworkService: NetworkServiceProtocol {
 				if let data = data {
 					completion(.success(data))
 				} else {
-					completion(.failure(error as! DataProviderError)) // todo
+					if let error = error as NSError?, error.domain == NSURLErrorDomain  {
+						switch error.code {
+						case NSURLErrorNotConnectedToInternet:
+							break // todo //	completion(.failure(error as! DataProviderError)) // todo
+						default:
+							return
+						}
+					}
 				}
 			}
 			request.onFinished = {[weak self] (request) in
@@ -87,12 +94,10 @@ fileprivate class NetworkRequest {
 	
 	public func cancel() {
 		task?.cancel()
-		onFinished?(self)
 	}
 	
 	public func suspend() {
 		task?.suspend()
-		onFinished?(self)
 	}
 	
 	public var onFinished: ((NetworkRequest) -> Void)?

@@ -9,46 +9,14 @@
 import UIKit
 
 
-class PresenterMock: SearchPresenterInput {
-	var items = ["hello", "how", "to", "get", "to", "the", "library"].map {SearchResultItem(title: $0)}
-	
-	func numberOfItems() -> Int {
-		return 3
-	}
-	
-	func itemAt(index: Int) -> SearchResultItem? {
-		if index < items.count {
-			return items[index]
-		}
-		return nil
-	}
-	
-	func search(for: String) {
-		
-	}
-	
-	deinit {
-		print("deinit")
-	}
-	
-	
-}
-
 class SearchViewController: UIViewController, SearchPresenterOutput, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
-	func updateSearchResults() {
-		
-	}
-	
-	func showError(_ error: SLVRecoverableError) {
-		
-	}
-	
 	
 	// MARK: - public
 	weak var presenter: SearchPresenterInput?
 	
-	@IBOutlet weak var searchBar: UISearchBar!
+	// MARK: - lifecycle
 	
+	@IBOutlet weak var searchBar: UISearchBar!
 	@IBOutlet weak var tableView: UITableView!
 	
 	override func viewDidLoad() {
@@ -56,6 +24,11 @@ class SearchViewController: UIViewController, SearchPresenterOutput, UITableView
 		configureTable()
 		configureSearch()
     }
+	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		searchBar.becomeFirstResponder()
+	}
 	
 	// MARK: - Results View
 	
@@ -81,9 +54,22 @@ class SearchViewController: UIViewController, SearchPresenterOutput, UITableView
 			return cell
 		}
 		
-		cell.textLabel?.text = item.title
+		cell.textLabel?.text = item.text
 		
 		return cell
+	}
+	
+	// MARK: - SearchPresenterOutput
+	
+	func updateSearchResults() {
+		DispatchQueue.main.async { [weak self] in
+			guard let self = self else {return}
+			self.tableView.reloadData()
+		}
+	}
+	
+	func showError(_ error: SLVRecoverableError) {
+		
 	}
 	
 	// MARK: - Search

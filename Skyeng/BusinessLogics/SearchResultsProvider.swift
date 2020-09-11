@@ -15,33 +15,36 @@ internal enum DataProviderRequest {
 }
 
 
+//internal protocol DataProviderResponse {
+//	associatedtype R
+//	var isEmpty: Bool {get}
+//	var value: R { get set }
+//}
 
-internal protocol DataProviderResponse {
-	var isEmpty: Bool {get}
-}
+struct NetworkResponse<T> { // todo: give normal name
+	typealias R = [T]
 
-typealias SearchAnswer = String
-struct NetworkResponse<T>: DataProviderResponse {
+	var value: [T]
+	
 	internal init(answers: [T]) {
-		self.answers = answers
+		self.value = answers
 	}
-	
-	var answers: [T]
-	
+		
 	var isEmpty: Bool {
-		return answers.count == 0
+		return value.isEmpty
 	}
 }
 
-internal typealias DataRequestCompletion = (Result<DataProviderResponse, DataProviderError>) -> Void
+
+internal typealias DataRequestCompletion<T> = (Result<NetworkResponse<T>, DataProviderError>) -> Void
 
 
 internal protocol ISearchResultsProvider {
-	func handle(query: DataProviderRequest, completion: @escaping DataRequestCompletion)
+	func handle<T: Decodable>(query: DataProviderRequest, completion: @escaping DataRequestCompletion<T>)
 }
 
 class SearchResultsProvider: ISearchResultsProvider {
-
+	
 	var cacheService: CacheService
 	var networkService: NetworkService
 	var networkResponseParser: NetworkResponseParser
@@ -52,12 +55,13 @@ class SearchResultsProvider: ISearchResultsProvider {
 		self.networkResponseParser = NetworkResponseParser()
 	}
 	
-	func handle(query: DataProviderRequest, completion: @escaping DataRequestCompletion) {
-		
-		cacheService.getFromCache(request: query) { [weak self] result in
+	
+	func handle<T: Decodable>(query: DataProviderRequest, completion: @escaping DataRequestCompletion<T>) {
+
+		cacheService.getFromCache(request: query) { [weak self] (result: NetworkResponse<T>) in
 			guard let self = self else {return}
 			if !result.isEmpty {
-				completion(.success(result))
+				completion(.success(result as! NetworkResponse))
 				return
 			}
 			
@@ -65,11 +69,10 @@ class SearchResultsProvider: ISearchResultsProvider {
 				guard let self = self else {return}
 				switch result {
 				case .success(let value):
-					let parsingResult = self.networkResponseParser.parse(value)
-//						completion(.success(value))
-				case .failure(_):
-					// todo: construct recoverable error from error
-					break
+					let parsingResult = self.networkResponseParser.parse(value, to: [T.self])
+					completion(parsingResult)
+				case .failure(let error):
+					completion(.failure(error))
 				}
 				
 			}
@@ -79,13 +82,11 @@ class SearchResultsProvider: ISearchResultsProvider {
 }
 
 struct NetworkResponseParser {
-	func parse(_ data: Data) -> Result<DataProviderResponse, DataProviderError> {
+	func parse<T:Decodable>(_ data: Data, to: [T.Type]) -> Result<NetworkResponse<T>, DataProviderError> {
 		
 		do {
-			let words = try JSONDecoder().decode([Word].self, from: data)
-//			if let words = words {
-				return .success(NetworkResponse(answers: words))
-//			}
+			let items = try JSONDecoder().decode([T].self, from: data)
+			return .success(NetworkResponse(answers: items))
 		}
 		catch let DecodingError.typeMismatch(type, context)  {
 		   print("Type '\(type)' mismatch:", context.debugDescription)
@@ -93,7 +94,6 @@ struct NetworkResponseParser {
 		} catch let otherError {
 			print(otherError)
 		}
-		
 		
 		return .failure(DataProviderError.responseError)
 	}

@@ -107,7 +107,7 @@ class NetworkServiceTests: XCTestCase {
 }
 
 class URLSessionMock: URLSessionFacadeProtocol {
-	func dataTask(url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionTaskProtocol {
+	func dataTask(url: URL, completionHandler: @escaping URLSessionCompletion) -> URLSessionTaskProtocol {
 		let mock = URLTaskMock {
 			completionHandler(Data(), nil, nil)
 		}
@@ -132,6 +132,7 @@ class URLTaskMock: URLSessionTaskProtocol {
 		timer?.cancel()
 	}
 	func suspend() {
+		print("suspending")
 		timer?.cancel()
 	}
 

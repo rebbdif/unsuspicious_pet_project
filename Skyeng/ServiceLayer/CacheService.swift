@@ -9,12 +9,12 @@
 import Foundation
 
 protocol CacheServiceProtocol {
-	func getFromCache(request: DataProviderRequest, completion: (DataProviderResponse) -> (Void))
+	func getFromCache<T>(request: DataProviderRequest, completion: (NetworkResponse<T>) -> (Void))
 }
 
 class CacheService: CacheServiceProtocol {
-	func getFromCache(request: DataProviderRequest, completion: (DataProviderResponse) -> (Void)) {
-		let emptyResult = NetworkResponse(answers: [])
+	func getFromCache<T>(request: DataProviderRequest, completion: (NetworkResponse<T>) -> (Void)) {
+		let emptyResult = NetworkResponse<T>(answers: [T]())
 		completion(emptyResult)
 	}
 }

@@ -60,7 +60,7 @@ class NetworkParserTests: XCTestCase {
 		let data = dataAsString.data(using: .utf8)!
 	
 		// act
-		let result = parser.parse(data)
+		let result = parser.parse(data, to:[Word.self])
 		
 		switch result {
 		case .success(let response):

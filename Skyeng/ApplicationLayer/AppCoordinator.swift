@@ -38,9 +38,9 @@ class AppCoordinator: NSObject {
 		
 		let chooseProjectsVC = mainStoryboard.instantiateViewController(identifier: "SearchViewController") as! SearchViewController
 		
-//		let presenter = SearchPresenter(searchResultsProvider: context.searchResultsProvider, view: chooseProjectsVC)
+		let presenter = SearchPresenter(searchResultsProvider: context.searchResultsProvider, view: chooseProjectsVC)
 		
-		let presenter = PresenterMock()
+//		let presenter = PresenterMock()
 		currentPresenter = presenter
 		
 		chooseProjectsVC.presenter = presenter

@@ -8,13 +8,10 @@
 
 import Foundation
 
-struct SearchResultItem {
-	var title: String
-}
 
 protocol ContentProvider {
 	func numberOfItems() -> Int
-	func itemAt(index: Int) -> SearchResultItem?
+	func itemAt(index: Int) -> Word?
 }
 
 protocol SearchProvider {
@@ -32,6 +29,8 @@ protocol SearchPresenterOutput: class {
 
 
 class SearchPresenter: SearchPresenterInput {
+	
+	// MARK: - Dependencies
 	private var searchResultsProvider: ISearchResultsProvider
 	private var view: SearchPresenterOutput
 
@@ -40,17 +39,33 @@ class SearchPresenter: SearchPresenterInput {
 		self.view = view
 	}
 	
+	// MARK: - Private
+	var searchResults = [Word]()
 	
-	func search(for: String) {
-		
+	
+	// MARK: - Public
+	
+	
+	func search(for string: String) {
+		let query = DataProviderRequest.search(query: string, offset: 0)
+		searchResultsProvider.handle(query: query) { [weak self] (result: Result<NetworkResponse<Word>, DataProviderError>)  in
+			guard let self = self else {return}
+			switch result {
+			case .success(let searchResults):
+				self.searchResults = searchResults.value
+				self.view.updateSearchResults()
+			case .failure(let error):
+				break
+			}
+		}
 	}
 	
 	func numberOfItems() -> Int {
-		return 0
+		return searchResults.count
 	}
 	
-	func itemAt(index: Int) -> SearchResultItem? {
-		return nil
+	func itemAt(index: Int) -> Word? {
+		return searchResults[index]
 	}
 	
 	

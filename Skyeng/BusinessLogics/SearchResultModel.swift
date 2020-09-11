@@ -21,15 +21,21 @@ extension Word: Decodable {
 
 struct Meaning  {
 	struct Translation {
-		let word: String
-		let note: String
+		let text: String
+		let note: String?
 	}
+	let translation: Translation
 	let id: Int
 	let partOfSpeechCode: String
 	let soundURL: String?
 	let transcription: String
+	let imageUrl: String?
 }
 
 extension Meaning: Decodable {
+	
+}
+
+extension Meaning.Translation: Decodable {
 	
 }

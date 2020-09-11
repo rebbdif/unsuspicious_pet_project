@@ -19,7 +19,7 @@ protocol SearchProvider {
 }
 
 protocol SearchPresenterInput: class, ContentProvider, SearchProvider {
-//	init(searchResultsProvider: ISearchResultsProvider, view: SearchPresenterOutput)
+	func selectedItem(at index: Int)
 }
 
 protocol SearchPresenterOutput: class {
@@ -42,9 +42,9 @@ class SearchPresenter: SearchPresenterInput {
 	// MARK: - Private
 	var searchResults = [Word]()
 	
-	
 	// MARK: - Public
 	
+	var showDetailsBlock: ((Word) -> Void)?
 	
 	func search(for string: String) {
 		let query = DataProviderRequest.search(query: string, offset: 0)
@@ -55,7 +55,7 @@ class SearchPresenter: SearchPresenterInput {
 				self.searchResults = searchResults.value
 				self.view.updateSearchResults()
 			case .failure(let error):
-				break
+				break // todo
 			}
 		}
 	}
@@ -66,6 +66,11 @@ class SearchPresenter: SearchPresenterInput {
 	
 	func itemAt(index: Int) -> Word? {
 		return searchResults[index]
+	}
+	
+	func selectedItem(at index: Int) {
+		let word = searchResults[index]
+		showDetailsBlock?(word)
 	}
 	
 	

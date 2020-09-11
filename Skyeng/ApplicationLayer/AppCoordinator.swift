@@ -20,13 +20,19 @@ class AppCoordinator: NSObject {
 	public var window: UIWindow
 	let context: AppContext
 	
-	var currentPresenter: AnyObject?
+	var presenters = [AnyObject]() // todo: make analogue of UINavigationController but as stack of presenters. so it holds presenters of controllers, that are holded now. make Presenter protocol
+	
+	var rootController: UINavigationController?
 	
 	// MARK: - Lifecycle
 	
 	public init(window: UIWindow, context: AppContext) {
 		self.window = window
 		self.context = context
+		
+		rootController = UINavigationController()
+		window.rootViewController = rootController
+		window.makeKeyAndVisible()
 	}
 	
 	public func start() {
@@ -34,18 +40,38 @@ class AppCoordinator: NSObject {
 	}
 	
 	public func startSearchFlow() {
-		let mainStoryboard = UIStoryboard(name: "Search", bundle: nil)
+		let searchStoryboard = UIStoryboard(name: "Search", bundle: nil)
 		
-		let chooseProjectsVC = mainStoryboard.instantiateViewController(identifier: "SearchViewController") as! SearchViewController
+		let searchVC = searchStoryboard.instantiateViewController(identifier: "SearchViewController") as! SearchViewController
 		
-		let presenter = SearchPresenter(searchResultsProvider: context.searchResultsProvider, view: chooseProjectsVC)
+		let presenter = SearchPresenter(searchResultsProvider: context.searchResultsProvider, view: searchVC)
+		presenter.showDetailsBlock = {[weak self] word in
+			guard let self = self else {return}
+			self.startDetailsFlow(for: word)
+		}
 		
-//		let presenter = PresenterMock()
-		currentPresenter = presenter
+		presenters.append(presenter)
+		searchVC.presenter = presenter
 		
-		chooseProjectsVC.presenter = presenter
-		window.rootViewController = chooseProjectsVC
-		window.makeKeyAndVisible()
+		rootController?.pushViewController(searchVC, animated: true)
+	}
+	
+	public func startDetailsFlow(for word: Word) {
+		let searchStoryboard = UIStoryboard(name: "Details", bundle: nil)
+		
+		let detailsVC = searchStoryboard.instantiateViewController(identifier: "DetailsViewController") as! DetailsViewController
+		
+		let presenter = DetailsPresenter(word: word)
+		presenter.backBlock = { [weak self] in
+			guard let self = self else {return}
+			self.rootController?.popViewController(animated: true)
+			self.presenters.removeLast()
+		}
+		presenters.append(presenter)
+
+		detailsVC.presenter = presenter
+		
+		rootController?.pushViewController(detailsVC, animated: true)
 	}
 	
 	public func coordinatorDidFinish(_ coordinator: Coordinator) {

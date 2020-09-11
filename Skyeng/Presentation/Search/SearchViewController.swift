@@ -27,6 +27,7 @@ class SearchViewController: UIViewController, SearchPresenterOutput, UITableView
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+		navigationController?.navigationBar.isHidden = true
 		searchBar.becomeFirstResponder()
 	}
 	
@@ -36,6 +37,7 @@ class SearchViewController: UIViewController, SearchPresenterOutput, UITableView
 		tableView.delegate = self
 		tableView.dataSource = self
 		tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellReuseId)
+		tableView.keyboardDismissMode = .onDrag
 	}
 	
 	private let cellReuseId = "TranslationCell"
@@ -46,7 +48,7 @@ class SearchViewController: UIViewController, SearchPresenterOutput, UITableView
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: "TranslationCell") else {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseId) else {
 			return UITableViewCell()
 		}
 		
@@ -57,6 +59,11 @@ class SearchViewController: UIViewController, SearchPresenterOutput, UITableView
 		cell.textLabel?.text = item.text
 		
 		return cell
+	}
+	
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		tableView.deselectRow(at: indexPath, animated: true)
+		presenter?.selectedItem(at: indexPath.row)
 	}
 	
 	// MARK: - SearchPresenterOutput

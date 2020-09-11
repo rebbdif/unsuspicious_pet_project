@@ -94,6 +94,7 @@ class NetworkParserTests: XCTestCase {
 			let result = try JSONDecoder().decode(Meaning.self, from: data)
 		} catch let error {
 			print(error)
+			XCTAssertTrue(false)
 			
 		}
 		//assert

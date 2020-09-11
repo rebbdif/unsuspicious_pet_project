@@ -14,13 +14,6 @@ internal enum DataProviderRequest {
 	case detailed(query: String)
 }
 
-
-//internal protocol DataProviderResponse {
-//	associatedtype R
-//	var isEmpty: Bool {get}
-//	var value: R { get set }
-//}
-
 struct NetworkResponse<T> { // todo: give normal name
 	typealias R = [T]
 

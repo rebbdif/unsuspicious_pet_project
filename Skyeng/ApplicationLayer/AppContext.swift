@@ -11,8 +11,16 @@ import Foundation
 
 class AppContext {
 	
-	lazy var searchResultsProvider: ISearchResultsProvider = SearchResultsProvider(cacheService: CacheService(), networkService: NetworkService(urlSession: URLSessionFacade.shared, urlProvider: URLProvider()))
-		
+	lazy var searchResultsProvider: ISearchResultsProvider = SearchResultsProvider(
+		cacheService: CacheService(),
+		networkService: NetworkService(urlSession: URLSessionFacade.shared, urlProvider: URLProvider())
+	)
+	
+	lazy var imageProvider: ImageProviderProtocol = ImageProvider(
+		cacheService: CacheService(),
+		networkService: NetworkService(urlSession: URLSessionFacade.shared, urlProvider: URLProvider())
+	)
+	
 	init() {
 		
 	}

@@ -61,7 +61,7 @@ class AppCoordinator: NSObject {
 		
 		let detailsVC = searchStoryboard.instantiateViewController(identifier: "DetailsViewController") as! DetailsViewController
 		
-		let presenter = DetailsPresenter(word: word)
+		let presenter = DetailsPresenter(imageProvider: context.imageProvider, word: word)
 		presenter.backBlock = { [weak self] in
 			guard let self = self else {return}
 			self.rootController?.popViewController(animated: true)

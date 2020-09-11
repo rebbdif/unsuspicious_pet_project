@@ -7,15 +7,21 @@
 //
 
 import Foundation
+import UIKit
 
 class DetailsPresenter {
 	
-	public let word: Word
+	private let imageProvider: ImageProviderProtocol
 	
-	internal init(word: Word) {
+	internal init(imageProvider: ImageProviderProtocol, word: Word) {
+		self.imageProvider = imageProvider
 		self.word = word
 	}
 	
+	// MARK: - Output
+	
+	let word: Word
+
 	func numberOfItems() -> Int {
 		return word.meanings.count
 	}
@@ -25,14 +31,29 @@ class DetailsPresenter {
 		return meaning
 	}
 	
+	func getImage(for index: Int, completion: @escaping (UIImage) -> Void) {
+		let meaning = word.meanings[index]
+		guard let url = meaning.imageUrl,
+			let imageUrl = URL(string: url) else {
+				return
+		}
+		
+		imageProvider.getImage(at: imageUrl) { (image) in
+			if let image = image {
+				completion(image)
+			}
+		}
+		
+	}
+	
 	func back() {
+		imageProvider.cancelRequests(for: self.word)
 		backBlock?()
 	}
 	
-	public var backBlock: (() -> Void)?
+	// MARK: - Input
 	
-	deinit {
-		print("deinit")
-	}
+	public var backBlock: (() -> Void)?
+
 	
 }

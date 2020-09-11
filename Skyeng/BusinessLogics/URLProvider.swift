@@ -9,7 +9,7 @@
 import Foundation
 
 protocol URLProviderProtocol {
-	func url(for request: DataProviderRequest) -> URL
+	func url(for request: DataProviderRequest) -> URL?
 }
 
 class URLProvider: URLProviderProtocol {
@@ -22,17 +22,26 @@ class URLProvider: URLProviderProtocol {
 	}
 	
 	// #todo: сделать рандомногенерящейся тест на эту штуку
-	func url(for request: DataProviderRequest) -> URL {
+	func url(for request: DataProviderRequest) -> URL? {
 		switch request {
 		case .search(query: let query, offset: let offset):
 			let search = "search=\(query)"
+			
+			guard let encodedSearch = search.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
+				print("\(#function) failed to turn to url \(search)")
+				return nil
+			}
+			
 			let offset = "page=\(offset)"
-			let query = "\(baseURL)\(searchMethod)?\(search)&\(offset)"
+			let query = "\(baseURL)\(searchMethod)?\(encodedSearch)&\(offset)"
 			
 			guard let url = URL(string: query) else {
-				preconditionFailure("failed to create url from \(query)")
+				print("\(#function) failed to turn to url \(query)")
+				return nil
 			}
+			
 			return url
+			
 		case .detailed(query: let query):
 			return URL(string: "https://googole.com")!
 		}

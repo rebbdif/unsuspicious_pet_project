@@ -27,7 +27,7 @@ class NetworkService: NetworkServiceProtocol {
 	private var activeTasks = [NetworkRequest]()
 		
 	func getFromNetwork(model: DataProviderRequest, _ completion: @escaping (Result<Data, DataProviderError>) -> Void ) {
-		let request = self.networkRequest(for: model)
+		guard let request = self.networkRequest(for: model) else { return }
 		networkServiceQueue.async { [weak self] in
 			guard let self = self else {return}
 			let sameTasks = self.activeTasks.filter { $0.url == request.url }
@@ -65,8 +65,8 @@ class NetworkService: NetworkServiceProtocol {
 		}
 	}
 	
-	private func networkRequest(for request: DataProviderRequest) -> NetworkRequest {
-		let url = urlProvider.url(for: request)
+	private func networkRequest(for request: DataProviderRequest) -> NetworkRequest? {
+		guard let url = urlProvider.url(for: request) else { return nil}
 
 		switch request {
 		case .search(query: _, offset: _):

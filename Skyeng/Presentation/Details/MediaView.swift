@@ -85,8 +85,7 @@ class MediaView: UIView {
 	}
 	
 	override class var requiresConstraintBasedLayout: Bool {
-		
 		return true
 	}
-
+    
 }

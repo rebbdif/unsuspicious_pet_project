@@ -18,10 +18,13 @@ class DetailsCell: UITableViewCell {
 		cellTitle = UILabel()
 		cellTitle.numberOfLines = 3
 		cellTitle.backgroundColor = .systemBlue
+		cellTitle.translatesAutoresizingMaskIntoConstraints = false
 		
 		contentView.addSubview(cellTitle)
 		
 		mediaView = MediaView()
+		mediaView.translatesAutoresizingMaskIntoConstraints = false
+
 		contentView.addSubview(mediaView)
 	}
 	
@@ -33,7 +36,7 @@ class DetailsCell: UITableViewCell {
 		cellTitle.text = text
 	}
 	
-	public func setMediaView(_ state: MediaView.State) {
+	public func setMediaViewState(_ state: MediaView.State) {
 		mediaView.state = state
 	}
 	

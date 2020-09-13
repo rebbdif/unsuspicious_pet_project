@@ -40,6 +40,7 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
 		tableView.delegate = self
 		tableView.dataSource = self
 		tableView.register(DetailsCell.self, forCellReuseIdentifier: cellReuseId)
+		tableView.rowHeight = UITableView.automaticDimension
 	}
 	
 	private let cellReuseId = "DetailsCell"
@@ -59,7 +60,14 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
 		}
 		
 		cell.setTitle(item.translation.text)
-		cell.setMediaView(.loading)
+		cell.setMediaViewState(.loading)
+		presenter?.getImage(for: indexPath.row, completion: { (image) in
+			guard let image = image else {
+				cell.setMediaViewState(.empty)
+				return
+			}
+			cell.setMediaViewState(.image(image))
+		})
 		
 		return cell
 	}

@@ -12,9 +12,18 @@ import Foundation
 internal enum DataProviderRequest {
 	case search(query: String, offset: Int)
 	case detailed(query: String)
+	
+	var rawValue: String {
+		switch self {
+		case .search(let query, let offset):
+			return "\(query)->\(offset)"
+		case .detailed(query: let query):
+			return "\(query)"
+		}
+	}
 }
 
-struct NetworkResponse<T> { // todo: give normal name
+class NetworkResponse<T> { // todo: give normal name
 	typealias R = [T]
 
 	var value: [T]
@@ -51,10 +60,11 @@ class SearchResultsProvider: ISearchResultsProvider {
 	
 	func handle<T: Decodable>(query: DataProviderRequest, completion: @escaping DataRequestCompletion<T>) {
 
-		cacheService.getFromCache(request: query) { [weak self] (result: NetworkResponse<T>) in
+		cacheService.getFromCache(request: query) { [weak self] (result: NetworkResponse<T>?) in
 			guard let self = self else {return}
-			if !result.isEmpty {
-				completion(.success(result as! NetworkResponse))
+			if let result = result,
+				!result.isEmpty {
+				completion(.success(result))
 				return
 			}
 			
@@ -64,6 +74,10 @@ class SearchResultsProvider: ISearchResultsProvider {
 				case .success(let value):
 					let parsingResult = self.networkResponseParser.parse(value, to: [T.self])
 					completion(parsingResult)
+					if case .success(let toCache) = parsingResult {
+						self.cacheService.saveToCache(request: query, response: toCache)
+					}
+					
 				case .failure(let error):
 					completion(.failure(error))
 				}

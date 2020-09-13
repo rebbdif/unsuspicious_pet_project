@@ -10,7 +10,15 @@ import Foundation
 
 
 protocol NetworkServiceProtocol {
-	func getFromNetwork(model: DataProviderRequest, _ completion: @escaping (Result<Data, DataProviderError>) -> Void )
+	
+	/// This function should be used in situatins when only the most actual request of a type should be completed.
+	/// - Parameters:
+	///   - model: request model
+	///   - completion: completion, called when actual request is fulfilled or error happens
+	func performNewestRequest(model: DataProviderRequest, _ completion: @escaping (Result<Data, DataProviderError>) -> Void)
+	
+	typealias GetMediaCompletion = ((Result<URL, DataProviderError>) -> Void)
+	func getMediaFromNetwork(model: DataProviderRequest, _ completion: @escaping GetMediaCompletion)
 }
 
 class NetworkService: NetworkServiceProtocol {
@@ -26,8 +34,25 @@ class NetworkService: NetworkServiceProtocol {
 	
 	private var activeTasks = [NetworkRequest]()
 		
-	func getFromNetwork(model: DataProviderRequest, _ completion: @escaping (Result<Data, DataProviderError>) -> Void ) {
+	func performNewestRequest(model: DataProviderRequest, _ completion: @escaping (Result<Data, DataProviderError>) -> Void ) {
 		guard let request = self.networkRequest(for: model) else { return }
+		let dataTask = self.urlSession.dataTask(url: request.url) {(data, resp, error) in
+			request.onFinished?(request)
+			if let data = data {
+				completion(.success(data))
+			} else {
+				if let error = error?.asNSURLError  {
+					switch error.code {
+					case NSURLErrorNotConnectedToInternet:
+					break // todo //	completion(.failure(error as! DataProviderError)) // todo
+					default:
+						return
+					}
+				}
+			}
+		}
+		request.setTask(dataTask)
+		
 		networkServiceQueue.async { [weak self] in
 			guard let self = self else {return}
 			let sameTasks = self.activeTasks.filter { $0.url == request.url }
@@ -38,31 +63,43 @@ class NetworkService: NetworkServiceProtocol {
 			
 			print("\(#function) starting task with \(request.url)")
 			
-			let dataTask = self.urlSession.dataTask(url: request.url) {(data, resp, error) in
-				request.onFinished?(request)
-				if let data = data {
-					completion(.success(data))
-				} else {
-					if let error = error as NSError?, error.domain == NSURLErrorDomain  {
-						switch error.code {
-						case NSURLErrorNotConnectedToInternet:
-							break // todo //	completion(.failure(error as! DataProviderError)) // todo
-						default:
-							return
-						}
-					}
-				}
-			}
 			request.onFinished = {[weak self] (request) in
 				self?.networkServiceQueue.async { [weak self] in
 					self?.activeTasks.removeAll(where: {$0.url == request.url })
 				}
 			}
-			request.setTask(dataTask)
 			
 			self.activeTasks.append(request)
-			dataTask.resume()
+			
+			request.task?.resume()
 		}
+	}
+	
+	func getMediaFromNetwork(model: DataProviderRequest, _ completion: @escaping GetMediaCompletion)
+	{
+		guard let request = self.networkRequest(for: model) else { return }
+		let downloadTask = self.urlSession.downloadTask(url: request.url) {(fileUrl, resp, error) in
+			request.onFinished?(request)
+			if let fileUrl = fileUrl {
+				completion(.success(fileUrl))
+			}
+			else {
+				if let error = error?.asNSURLError  {
+					switch error.code {
+					case NSURLErrorNotConnectedToInternet:
+					break // todo //	completion(.failure(error as! DataProviderError)) // todo
+					default:
+						print("\(#function) failed with \(error)")
+						return
+					}
+				}
+			}
+		}
+		request.setTask(downloadTask)
+
+		self.activeTasks.append(request)
+		
+		request.task?.resume()
 	}
 	
 	private func networkRequest(for request: DataProviderRequest) -> NetworkRequest? {
@@ -73,6 +110,8 @@ class NetworkService: NetworkServiceProtocol {
 			return NetworkRequest.search(url: url)
 		case .detailed(query: _):
 			return NetworkRequest.query(url: url)
+		case .media(query: _):
+			return NetworkRequest.media(url: url)
 		}
 	}
 }
@@ -81,31 +120,31 @@ class NetworkService: NetworkServiceProtocol {
 fileprivate class NetworkRequest {
 	
 	enum RequestType: Int {
-		case search, query, genericDataTask
+		case search, query, genericDataTask, media
 	}
 	
-	public var type: RequestType
-	public var url: URL
+	var type: RequestType
+	var url: URL
 	
-	public func resume() {
+	func resume() {
 		task?.resume()
 		onFinished?(self)
 	}
 	
-	public func cancel() {
+	func cancel() {
 		task?.cancel()
 	}
 	
-	public func suspend() {
+	func suspend() {
 		task?.suspend()
 	}
 	
-	public var onFinished: ((NetworkRequest) -> Void)?
-	public var onCancelled: ((NetworkRequest) -> Void)?
-	public var onSuspended: ((NetworkRequest) -> Void)?
+	var onFinished: ((NetworkRequest) -> Void)?
+	var onCancelled: ((NetworkRequest) -> Void)?
+	var onSuspended: ((NetworkRequest) -> Void)?
 	
-	private var task: URLSessionTaskProtocol?
-	public func setTask(_ task: URLSessionTaskProtocol) {
+	var task: URLSessionTaskProtocol?
+	func setTask(_ task: URLSessionTaskProtocol) {
 		self.task = task
 	}
 	
@@ -113,7 +152,9 @@ fileprivate class NetworkRequest {
 		self.type = type
 		self.url = url
 	}
-	
+}
+
+extension NetworkRequest {
 	static func search(url: URL) -> NetworkRequest {
 		return NetworkRequest(type: .search, url: url)
 	}
@@ -124,5 +165,19 @@ fileprivate class NetworkRequest {
 	
 	static func genericDataTask(url: URL) -> NetworkRequest {
 		return NetworkRequest(type: .genericDataTask, url: url)
+	}
+	
+	static func media(url: URL) -> NetworkRequest {
+		return NetworkRequest(type: .media, url: url)
+	}
+}
+
+extension Error {
+	
+	var asNSURLError: NSError? {
+		if let error = self as NSError?, error.domain == NSURLErrorDomain {
+			return error
+		}
+		return nil
 	}
 }

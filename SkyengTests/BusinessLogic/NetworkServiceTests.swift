@@ -19,7 +19,7 @@ class NetworkServiceTests: XCTestCase {
 		networkService = NetworkService(urlSession: sessionMock, urlProvider: URLProvider())
 	}
 	
-	func test_getFromNetwork_sameRequests() {
+	func test_performNewestRequest_sameRequests() {
 		// arrange
 		let firstRequest = DataProviderRequest.search(query: "hi", offset: 0)
 		let secondRequest = DataProviderRequest.search(query: "hi", offset: 0)
@@ -30,10 +30,10 @@ class NetworkServiceTests: XCTestCase {
 		secondCallExpectation.isInverted = true
 
 		// act
-		networkService?.getFromNetwork(model: firstRequest, { result in
+		networkService?.performNewestRequest(model: firstRequest, { result in
 			firstCallExpectation.fulfill()
 		})
-		networkService?.getFromNetwork(model: secondRequest, { result in
+		networkService?.performNewestRequest(model: secondRequest, { result in
 			secondCallExpectation.fulfill()
 		})
 		
@@ -41,7 +41,7 @@ class NetworkServiceTests: XCTestCase {
 		wait(for: [firstCallExpectation, secondCallExpectation], timeout: 3)
 	}
 	
-	func test_getFromNetwork_differentRequestsOfSameType() {
+	func test_performNewestRequest_differentRequestsOfSameType() {
 		// arrange
 		let firstRequest = DataProviderRequest.search(query: "hi", offset: 0)
 		let secondRequest = DataProviderRequest.search(query: "hilarious", offset: 0)
@@ -52,10 +52,10 @@ class NetworkServiceTests: XCTestCase {
 		let secondCallExpectation = XCTestExpectation(description: "newer call should happen")
 
 		// act
-		networkService?.getFromNetwork(model: firstRequest, { result in
+		networkService?.performNewestRequest(model: firstRequest, { result in
 			firstCallExpectation.fulfill()
 		})
-		networkService?.getFromNetwork(model: secondRequest, { result in
+		networkService?.performNewestRequest(model: secondRequest, { result in
 			secondCallExpectation.fulfill()
 		})
 		
@@ -63,7 +63,7 @@ class NetworkServiceTests: XCTestCase {
 		wait(for: [firstCallExpectation, secondCallExpectation], timeout: 3)
 	}
 	
-	func test_getFromNetwork_differentRequestsOfDifferentTypes() {
+	func test_performNewestRequest_differentRequestsOfDifferentTypes() {
 		// arrange
 		let firstRequest = DataProviderRequest.search(query: "hi", offset: 0)
 		let secondRequest = DataProviderRequest.detailed(query: "hi")
@@ -72,10 +72,10 @@ class NetworkServiceTests: XCTestCase {
 		let secondCallExpectation = XCTestExpectation(description: "newer call should happen")
 
 		// act
-		networkService?.getFromNetwork(model: firstRequest, { result in
+		networkService?.performNewestRequest(model: firstRequest, { result in
 			firstCallExpectation.fulfill()
 		})
-		networkService?.getFromNetwork(model: secondRequest, { result in
+		networkService?.performNewestRequest(model: secondRequest, { result in
 			secondCallExpectation.fulfill()
 		})
 		
@@ -83,7 +83,7 @@ class NetworkServiceTests: XCTestCase {
 		wait(for: [firstCallExpectation, secondCallExpectation], timeout: 3)
 	}
 	
-	func test_getFromNetwork_sameRequestHasFinishedLongAgo() {
+	func test_performNewestRequest_sameRequestHasFinishedLongAgo() {
 		// arrange
 		let firstRequest = DataProviderRequest.search(query: "hi", offset: 0)
 		let secondRequest = DataProviderRequest.search(query: "hi", offset: 0)
@@ -92,9 +92,9 @@ class NetworkServiceTests: XCTestCase {
 		let secondCallExpectation = XCTestExpectation(description: "newer call should happen")
 
 		// act
-		networkService?.getFromNetwork(model: firstRequest, { result in
+		networkService?.performNewestRequest(model: firstRequest, { result in
 			firstCallExpectation.fulfill()
-			self.networkService?.getFromNetwork(model: secondRequest, { result in
+			self.networkService?.performNewestRequest(model: secondRequest, { result in
 				secondCallExpectation.fulfill()
 			})
 		})
@@ -107,12 +107,19 @@ class NetworkServiceTests: XCTestCase {
 }
 
 class URLSessionMock: URLSessionFacadeProtocol {
-	func dataTask(url: URL, completionHandler: @escaping URLSessionCompletion) -> URLSessionTaskProtocol {
+	func downloadTask(url: URL, completionHandler: @escaping URLSessionDownloadTaskCompletion) -> URLSessionTaskProtocol {
+		let mock = URLTaskMock {
+			completionHandler(URL(string: "yandex.ru"), nil, nil)
+		}
+		return mock
+	}
+	
+	func dataTask(url: URL, completionHandler: @escaping URLSessionDataTaskCompletion) -> URLSessionTaskProtocol {
 		let mock = URLTaskMock {
 			completionHandler(Data(), nil, nil)
 		}
 		return mock
-		}
+	}
 	
 }
 

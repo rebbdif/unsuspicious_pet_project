@@ -48,7 +48,7 @@ class SearchPresenter: SearchPresenterInput {
 	
 	func search(for string: String) {
 		let query = DataProviderRequest.search(query: string, offset: 0)
-		searchResultsProvider.handle(query: query) { [weak self] (result: Result<NetworkResponse<Word>, DataProviderError>)  in
+		searchResultsProvider.handle(query: query) { [weak self] (result: Result<DataProviderResponse<Word>, DataProviderError>)  in
 			guard let self = self else {return}
 			switch result {
 			case .success(let searchResults):

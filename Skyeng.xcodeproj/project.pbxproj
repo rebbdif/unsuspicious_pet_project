@@ -28,6 +28,7 @@
 		8EA9F447250BBDA20078E3B8 /* ImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA9F446250BBDA20078E3B8 /* ImageProvider.swift */; };
 		8EA9F44A250E17740078E3B8 /* DetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA9F448250E17740078E3B8 /* DetailsCell.swift */; };
 		8EA9F44D250E188F0078E3B8 /* MediaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA9F44C250E188F0078E3B8 /* MediaView.swift */; };
+		8EB9AAFE250ED4D400693DB8 /* DataProviderModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB9AAFD250ED4D400693DB8 /* DataProviderModels.swift */; };
 		8EE1C9012501BD400088BF58 /* Skyeng.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8EE1C8FF2501BD400088BF58 /* Skyeng.xcdatamodeld */; };
 		8EE1C9032501BD450088BF58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8EE1C9022501BD450088BF58 /* Assets.xcassets */; };
 		8EE1C9062501BD450088BF58 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EE1C9042501BD450088BF58 /* LaunchScreen.storyboard */; };
@@ -74,6 +75,7 @@
 		8EA9F446250BBDA20078E3B8 /* ImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProvider.swift; sourceTree = "<group>"; };
 		8EA9F448250E17740078E3B8 /* DetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsCell.swift; sourceTree = "<group>"; };
 		8EA9F44C250E188F0078E3B8 /* MediaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaView.swift; sourceTree = "<group>"; };
+		8EB9AAFD250ED4D400693DB8 /* DataProviderModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProviderModels.swift; sourceTree = "<group>"; };
 		8EE1C8F32501BD400088BF58 /* Skyeng.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Skyeng.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EE1C9002501BD400088BF58 /* Skyeng.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Skyeng.xcdatamodel; sourceTree = "<group>"; };
 		8EE1C9022501BD450088BF58 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 		8EA9F43C250B58100078E3B8 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				8EE1C95C2501CF0D0088BF58 /* SearchPresenter.swift */,
 				8EE1C9582501CAC70088BF58 /* Search.storyboard */,
 				8EE1C9562501CAAC0088BF58 /* SearchViewController.swift */,
 			);
@@ -156,28 +159,11 @@
 		8EA9F43D250B58230078E3B8 /* Details */ = {
 			isa = PBXGroup;
 			children = (
+				8EA9F444250B58E30078E3B8 /* DetailsPresenter.swift */,
 				8EA9F43E250B58390078E3B8 /* Details.storyboard */,
 				8EA9F440250B58810078E3B8 /* DetailsViewController.swift */,
 				8EA9F448250E17740078E3B8 /* DetailsCell.swift */,
 				8EA9F44C250E188F0078E3B8 /* MediaView.swift */,
-			);
-			path = Details;
-			sourceTree = "<group>";
-		};
-		8EA9F442250B58C80078E3B8 /* Search */ = {
-			isa = PBXGroup;
-			children = (
-				8EE1C95C2501CF0D0088BF58 /* SearchPresenter.swift */,
-				8EE1C95F25021D250088BF58 /* SearchResultsProvider.swift */,
-			);
-			path = Search;
-			sourceTree = "<group>";
-		};
-		8EA9F443250B58D20078E3B8 /* Details */ = {
-			isa = PBXGroup;
-			children = (
-				8EA9F444250B58E30078E3B8 /* DetailsPresenter.swift */,
-				8EA9F446250BBDA20078E3B8 /* ImageProvider.swift */,
 			);
 			path = Details;
 			sourceTree = "<group>";
@@ -257,10 +243,11 @@
 			isa = PBXGroup;
 			children = (
 				8EA9F438250A822B0078E3B8 /* SearchResultModel.swift */,
-				8EA9F443250B58D20078E3B8 /* Details */,
 				8EF5AB9A25061EB400B01130 /* URLProvider.swift */,
-				8EA9F442250B58C80078E3B8 /* Search */,
 				8E47F5192502318100C05CC6 /* DataProviderError.swift */,
+				8EB9AAFD250ED4D400693DB8 /* DataProviderModels.swift */,
+				8EA9F446250BBDA20078E3B8 /* ImageProvider.swift */,
+				8EE1C95F25021D250088BF58 /* SearchResultsProvider.swift */,
 			);
 			path = BusinessLogics;
 			sourceTree = "<group>";
@@ -382,6 +369,7 @@
 				8EA9F439250A822B0078E3B8 /* SearchResultModel.swift in Sources */,
 				8EA9F44D250E188F0078E3B8 /* MediaView.swift in Sources */,
 				8EA9F39D2507A8E20078E3B8 /* URLSessionFacade.swift in Sources */,
+				8EB9AAFE250ED4D400693DB8 /* DataProviderModels.swift in Sources */,
 				8EE1C9572501CAAC0088BF58 /* SearchViewController.swift in Sources */,
 				8EA9F447250BBDA20078E3B8 /* ImageProvider.swift in Sources */,
 				8EA9F44A250E17740078E3B8 /* DetailsCell.swift in Sources */,

@@ -19,8 +19,12 @@ extension URLSessionTask: URLSessionTaskProtocol {}
 
 
 public protocol URLSessionFacadeProtocol {
-	typealias URLSessionCompletion = (Data?, URLResponse?, Error?) -> Void
-	func dataTask(url: URL, completionHandler: @escaping URLSessionCompletion) -> URLSessionTaskProtocol
+	typealias URLSessionDataTaskCompletion = (Data?, URLResponse?, Error?) -> Void
+	func dataTask(url: URL, completionHandler: @escaping URLSessionDataTaskCompletion) -> URLSessionTaskProtocol
+	
+	typealias URLSessionDownloadTaskCompletion = (URL?, URLResponse?, Error?) -> Void
+	func downloadTask(url: URL, completionHandler: @escaping URLSessionDownloadTaskCompletion) -> URLSessionTaskProtocol
+
 }
 
 class URLSessionFacade: URLSessionFacadeProtocol {
@@ -33,8 +37,15 @@ class URLSessionFacade: URLSessionFacadeProtocol {
 		self.session = session
 	}
 	
-	func dataTask(url: URL, completionHandler: @escaping URLSessionCompletion) -> URLSessionTaskProtocol {
+	func dataTask(url: URL, completionHandler: @escaping URLSessionDataTaskCompletion) -> URLSessionTaskProtocol {
 		let task = session.dataTask(with: url, completionHandler: completionHandler)
+		return task
+	}
+	
+	
+	
+	func downloadTask(url: URL, completionHandler: @escaping URLSessionDownloadTaskCompletion) -> URLSessionTaskProtocol {
+		let task = session.downloadTask(with: url, completionHandler: completionHandler)
 		return task
 	}
 }

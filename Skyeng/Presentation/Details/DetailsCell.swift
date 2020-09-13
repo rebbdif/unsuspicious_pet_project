@@ -17,7 +17,6 @@ class DetailsCell: UITableViewCell {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		cellTitle = UILabel()
 		cellTitle.numberOfLines = 3
-		cellTitle.backgroundColor = .systemBlue
 		cellTitle.translatesAutoresizingMaskIntoConstraints = false
 		
 		contentView.addSubview(cellTitle)

@@ -9,36 +9,7 @@
 import Foundation
 
 
-internal enum DataProviderRequest {
-	case search(query: String, offset: Int)
-	case detailed(query: String)
-	
-	var rawValue: String {
-		switch self {
-		case .search(let query, let offset):
-			return "\(query)->\(offset)"
-		case .detailed(query: let query):
-			return "\(query)"
-		}
-	}
-}
-
-class NetworkResponse<T> { // todo: give normal name
-	typealias R = [T]
-
-	var value: [T]
-	
-	internal init(answers: [T]) {
-		self.value = answers
-	}
-		
-	var isEmpty: Bool {
-		return value.isEmpty
-	}
-}
-
-
-internal typealias DataRequestCompletion<T> = (Result<NetworkResponse<T>, DataProviderError>) -> Void
+internal typealias DataRequestCompletion<T> = (Result<DataProviderResponse<T>, DataProviderError>) -> Void
 
 
 internal protocol ISearchResultsProvider {
@@ -60,7 +31,7 @@ class SearchResultsProvider: ISearchResultsProvider {
 	
 	func handle<T: Decodable>(query: DataProviderRequest, completion: @escaping DataRequestCompletion<T>) {
 
-		cacheService.getFromCache(request: query) { [weak self] (result: NetworkResponse<T>?) in
+		cacheService.getFromCache(request: query) { [weak self] (result: DataProviderResponse<T>?) in
 			guard let self = self else {return}
 			if let result = result,
 				!result.isEmpty {
@@ -68,7 +39,7 @@ class SearchResultsProvider: ISearchResultsProvider {
 				return
 			}
 			
-			self.networkService.getFromNetwork(model: query) { [weak self] (result) in
+			self.networkService.performNewestRequest(model: query) { [weak self] (result) in
 				guard let self = self else {return}
 				switch result {
 				case .success(let value):
@@ -89,11 +60,11 @@ class SearchResultsProvider: ISearchResultsProvider {
 }
 
 struct NetworkResponseParser {
-	func parse<T:Decodable>(_ data: Data, to: [T.Type]) -> Result<NetworkResponse<T>, DataProviderError> {
+	func parse<T:Decodable>(_ data: Data, to: [T.Type]) -> Result<DataProviderResponse<T>, DataProviderError> {
 		
 		do {
 			let items = try JSONDecoder().decode([T].self, from: data)
-			return .success(NetworkResponse(answers: items))
+			return .success(DataProviderResponse(answers: items))
 		}
 		catch let DecodingError.typeMismatch(type, context)  {
 		   print("Type '\(type)' mismatch:", context.debugDescription)

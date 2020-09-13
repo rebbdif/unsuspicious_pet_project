@@ -33,11 +33,10 @@ class MediaView: UIView {
 				loaderView.isHidden = false
 				loaderView.startAnimating()
 			case .image(let image):
-				imageView.backgroundColor = .systemRed
+				imageView.isHidden = false
 				imageView.image = image
 			case .empty:
 				emptyView.isHidden = false
-				emptyView.backgroundColor = .systemBlue
 			}
 		}
 	}
@@ -45,8 +44,13 @@ class MediaView: UIView {
 	init() {
 		emptyView = UIView()
 		emptyView.translatesAutoresizingMaskIntoConstraints = false
+		
 		imageView = UIImageView()
+		imageView.contentMode = .scaleAspectFill
+		imageView.layer.cornerRadius = 4
+		imageView.layer.masksToBounds = true
 		imageView.translatesAutoresizingMaskIntoConstraints = false
+		
 		loaderView = UIActivityIndicatorView()
 		loaderView.translatesAutoresizingMaskIntoConstraints = false
 
@@ -58,7 +62,6 @@ class MediaView: UIView {
 		
 		state = .empty
 		
-		self.backgroundColor = .brown
 	}
 	
 	required init?(coder: NSCoder) {

@@ -43,7 +43,11 @@ class URLProvider: URLProviderProtocol {
 			return url
 			
 		case .detailed(query: let query):
-			return URL(string: "https://googole.com")!
+			return URL(string: "google.com") // todo
+			
+		case .media(query: let query):
+			return URL(string: "https:\(query)")
+
 		}
 		
 		

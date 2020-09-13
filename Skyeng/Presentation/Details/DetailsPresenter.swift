@@ -33,12 +33,9 @@ class DetailsPresenter {
 	
 	func getImage(for index: Int, completion: @escaping (UIImage?) -> Void) {
 		let meaning = word.meanings[index]
-		guard let url = meaning.imageUrl,
-			let imageUrl = URL(string: url) else {
-				return
-		}
+		guard let url = meaning.imageUrl else { return }
 		
-		imageProvider.getImage(at: imageUrl) { (image) in
+		imageProvider.getImage(at: url) { (image) in
 			completion(image)
 		}
 		

@@ -9,9 +9,9 @@
 import Foundation
 
 protocol CacheServiceProtocol {
-	func getFromCache<T>(request: DataProviderRequest, completion: (NetworkResponse<T>?) -> (Void))
-	
-	func saveToCache<T>(request: DataProviderRequest, response: NetworkResponse<T>)
+	func getFromCache<T>(request: DataProviderRequest, completion: (DataProviderResponse<T>?) -> (Void))
+	func saveToCache<T>(request: DataProviderRequest, response: DataProviderResponse<T>)
+
 }
 
 class CacheService: CacheServiceProtocol {
@@ -22,12 +22,12 @@ class CacheService: CacheServiceProtocol {
 		cache = NSCache()
 	}
 	
-	func saveToCache<T>(request: DataProviderRequest, response: NetworkResponse<T>) {
+	func saveToCache<T>(request: DataProviderRequest, response: DataProviderResponse<T>) {
 		cache.setObject(response, forKey: NSString(string: request.rawValue))
 	}
 	
-	func getFromCache<T>(request: DataProviderRequest, completion: (NetworkResponse<T>?) -> (Void)) {
-		guard let response = cache.object(forKey: NSString(string: request.rawValue)) as? NetworkResponse<T> else {
+	func getFromCache<T>(request: DataProviderRequest, completion: (DataProviderResponse<T>?) -> (Void)) {
+		guard let response = cache.object(forKey: NSString(string: request.rawValue)) as? DataProviderResponse<T> else {
 			completion(nil)
 			return
 		}

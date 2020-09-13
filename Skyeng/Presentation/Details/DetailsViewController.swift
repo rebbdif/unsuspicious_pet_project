@@ -62,11 +62,14 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
 		cell.setTitle(item.translation.text)
 		cell.setMediaViewState(.loading)
 		presenter?.getImage(for: indexPath.row, completion: { (image) in
-			guard let image = image else {
-				cell.setMediaViewState(.empty)
-				return
+			DispatchQueue.main.async {
+				guard let image = image else {
+					cell.setMediaViewState(.empty)
+					return
+				}
+				cell.setMediaViewState(.image(image))
 			}
-			cell.setMediaViewState(.image(image))
+			
 		})
 		
 		return cell

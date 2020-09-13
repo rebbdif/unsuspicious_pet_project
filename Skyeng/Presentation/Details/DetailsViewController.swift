@@ -39,7 +39,7 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
 	private func configureTable() {
 		tableView.delegate = self
 		tableView.dataSource = self
-		tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellReuseId)
+		tableView.register(DetailsCell.self, forCellReuseIdentifier: cellReuseId)
 	}
 	
 	private let cellReuseId = "DetailsCell"
@@ -50,7 +50,7 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseId) else {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseId, for: indexPath) as? DetailsCell else {
 			return UITableViewCell()
 		}
 		
@@ -58,8 +58,8 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
 			return cell
 		}
 		
-		cell.textLabel?.text = item.translation.text
-		
+		cell.setTitle(item.translation.text)
+		cell.setMediaView(.loading)
 		
 		return cell
 	}
